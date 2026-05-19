@@ -13,7 +13,7 @@ const Navbar = () => {
         </>)
     return (
         <div>
-            <div className="max-lg:collapse bg-white/5  backdrop-blur-2xl border border-white/10   shadow-xl w-full rounded-md">
+            <div className="max-lg:collapse  bg-base-400   backdrop-blur-2xl border border-white/10   shadow-xl w-full rounded z-[9999] relative">
                 <input id="navbar-1-toggle" className="peer hidden" type="checkbox" />
                 <label htmlFor="navbar-1-toggle" className="fixed inset-0 hidden max-lg:peer-checked:block"></label>
                 <div className="collapse-title navbar">
@@ -40,7 +40,7 @@ const Navbar = () => {
                                 </div>
                                 <ul
                                     tabIndex="-1"
-                                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-index:9999 mt-3 w-52 p-4 shadow">
                                     <li><a>Logout</a></li>
                                 </ul>
                             </div>

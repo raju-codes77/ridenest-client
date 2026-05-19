@@ -4,7 +4,7 @@ import React from "react";
 const Banner = () => {
     return (
         <section
-            className="hero min-h-screen relative overflow-hidden"
+            className="hero min-h-screen relative overflow-visible z-0"
             style={{
                 backgroundImage: "url('/assets/banner.png')",
                 backgroundSize: "cover",
@@ -15,7 +15,7 @@ const Banner = () => {
             <div className="absolute inset-0 bg-slate-950/60"></div>
 
             {/* Blue Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-550 via-slate-900/30 to-blue-550/60"></div>
+            <div className="absolute inset-0 bg-linear-to-r from-slate-500 via-slate-900/30 to-blue-500/30"></div>
 
             {/* Glow Effects */}
             <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 blur-3xl rounded-full"></div>
