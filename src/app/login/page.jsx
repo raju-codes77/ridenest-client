@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import {
     Button,
     Card,
@@ -11,6 +11,7 @@ import {
 } from "@heroui/react";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
+import { authClient } from "../explore-cars/[id]/auth-client";
 
 
 const LoginPage = () => {
@@ -23,198 +24,197 @@ const LoginPage = () => {
     const handleLogin = async (e) => {
 
         e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const user = Object.fromEntries(formData.entries());
 
-        setLoading(true);
+        const { data, error } = await authClient.signIn.email({
+            email: user.email, // user email address
+            password: user.password, // user password -> min 8 characters by default
+            // callbackURL:
 
-        const form = e.target;
+        }, {
+            onRequest: (ctx) => {
+                //show loading
+            },
+            onSuccess: (ctx) => {
+                //redirect to the dashboard or sign in page
+                toast.success("Welcome! You are logged In ");
+                redirect("/")
+            },
+            onError: (ctx) => {
+                // display the error message
+                toast.error(ctx.error.message);
+            }
+        })
 
-        const email = form.email.value;
-        const password = form.password.value;
 
-        try {
 
-            // Example Login Logic
-            console.log(email, password);
 
-            // Success Toast
-            toast.success("Login successful!");
+    }
 
-            // Redirect Home
-            router.push("/");
 
-        } catch (error) {
+// Google Login
+const handleGoogleLogin = async () => {
 
-            toast.error("Invalid email or password");
+    try {
 
-        } finally {
+        // Google Login Logic Here
 
-            setLoading(false);
+        toast.success("Google Login Successful!");
 
-        }
-    };
+        // Redirect Home
+        router.push("/");
 
-    // Google Login
-    const handleGoogleLogin = async () => {
+    } catch (error) {
 
-        try {
+        toast.error("Google Login Failed");
 
-            // Google Login Logic Here
+    }
+};
 
-            toast.success("Google Login Successful!");
+return (
+    <section className="min-h-screen bg-gradient-to-br from-cyan-100 via-sky-50 to-blue-100 flex items-center justify-center px-4 py-10">
 
-            // Redirect Home
-            router.push("/");
+        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
 
-        } catch (error) {
+            {/* Left Side Form */}
+            <Card className="bg-white/70 backdrop-blur-2xl border border-white/50 shadow-2xl rounded-3xl">
 
-            toast.error("Google Login Failed");
+                <div className="p-8 md:p-12 mx-auto w-full">
 
-        }
-    };
+                    <div className="mb-8">
 
-    return (
-        <section className="min-h-screen bg-gradient-to-br from-cyan-100 via-sky-50 to-blue-100 flex items-center justify-center px-4 py-10">
+                        <h1 className="text-4xl font-black text-slate-800">
+                            Welcome Back
+                        </h1>
 
-            <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                        <p className="text-slate-500 mt-3 text-lg">
+                            Login to continue your RideNest journey.
+                        </p>
 
-                {/* Left Side Form */}
-                <Card className="bg-white/70 backdrop-blur-2xl border border-white/50 shadow-2xl rounded-3xl">
+                    </div>
 
-                    <div className="p-8 md:p-12 mx-auto w-full">
+                    <form
+                        onSubmit={handleLogin}
+                        className="space-y-6"
+                    >
 
-                        <div className="mb-8">
+                        {/* Email */}
+                        <Input
+                            required
+                            name="email"
+                            label="Email"
+                            placeholder="Enter your email"
+                            type="email"
+                            variant="bordered"
+                            radius="lg"
+                            size="lg"
+                            className="w-full"
+                        />
 
-                            <h1 className="text-4xl font-black text-slate-800">
-                                Welcome Back
-                            </h1>
+                        {/* Password */}
+                        <Input
+                            required
+                            name="password"
+                            label="Password"
+                            placeholder="Enter your password"
+                            type="password"
+                            variant="bordered"
+                            radius="lg"
+                            size="lg"
+                            className="w-full"
+                        />
 
-                            <p className="text-slate-500 mt-3 text-lg">
-                                Login to continue your RideNest journey.
-                            </p>
-
-                        </div>
-
-                        <form
-                            onSubmit={handleLogin}
-                            className="space-y-6"
+                        {/* Login Button */}
+                        <Button
+                            type="submit"
+                            isLoading={loading}
+                            className="w-full bg-cyan-500 text-white font-semibold h-12 text-lg rounded-xl"
                         >
+                            Login
+                        </Button>
 
-                            {/* Email */}
-                            <Input
-                                required
-                                name="email"
-                                label="Email"
-                                placeholder="Enter your email"
-                                type="email"
-                                variant="bordered"
-                                radius="lg"
-                                size="lg"
-                                className="w-full"
-                            />
+                        {/* Divider */}
+                        <div className="flex items-center gap-4">
 
-                            {/* Password */}
-                            <Input
-                                required
-                                name="password"
-                                label="Password"
-                                placeholder="Enter your password"
-                                type="password"
-                                variant="bordered"
-                                radius="lg"
-                                size="lg"
-                                className="w-full"
-                            />
+                            <div className="flex-1 h-[1px] bg-slate-300"></div>
 
-                            {/* Login Button */}
-                            <Button
-                                type="submit"
-                                isLoading={loading}
-                                className="w-full bg-cyan-500 text-white font-semibold h-12 text-lg rounded-xl"
-                            >
-                                Login
-                            </Button>
+                            <span className="text-slate-500 text-sm">
+                                OR
+                            </span>
 
-                            {/* Divider */}
-                            <div className="flex items-center gap-4">
-
-                                <div className="flex-1 h-[1px] bg-slate-300"></div>
-
-                                <span className="text-slate-500 text-sm">
-                                    OR
-                                </span>
-
-                                <div className="flex-1 h-[1px] bg-slate-300"></div>
-
-                            </div>
-
-                            {/* Google Login */}
-                            <Button
-                                type="button"
-                                onClick={handleGoogleLogin}
-                                variant="bordered"
-                                className="w-full h-12 border-slate-300 text-slate-700 rounded-xl"
-                            >
-                                <FcGoogle size={22} />
-                                Continue with Google
-                            </Button>
-
-                        </form>
-
-                        {/* Register Link */}
-                        <p className="text-slate-600 text-center mt-8">
-
-                            Don&apos;t have an account?{" "}
-
-                            <Link
-                                href="/signup"
-                                className="text-cyan-600 font-semibold"
-                            >
-                                Register
-                            </Link>
-
-                        </p>
-
-                    </div>
-
-                </Card>
-
-                {/* Right Side Logo */}
-                <div className="hidden lg:flex justify-center items-center">
-
-                    <div className="text-center">
-
-                        <div className="bg-white/40 backdrop-blur-2xl rounded-full p-10 shadow-2xl border border-white/50">
-
-                            <Image
-                                src="/assets/logo2.png"
-                                alt="RideNest Logo"
-                                width={480}
-                                height={280}
-                                className="object-contain"
-                            />
+                            <div className="flex-1 h-[1px] bg-slate-300"></div>
 
                         </div>
 
-                        <h2 className="text-7xl font-black text-slate-800 mt-8">
-                            Ride
-                            <span className="text-cyan-400">
-                                Nest
-                            </span>
-                        </h2>
+                        {/* Google Login */}
+                        <Button
+                            type="button"
+                            onClick={handleGoogleLogin}
+                            variant="bordered"
+                            className="w-full h-12 border-slate-300 text-slate-700 rounded-xl"
+                        >
+                            <FcGoogle size={22} />
+                            Continue with Google
+                        </Button>
 
-                        <p className="text-slate-600 mt-4 text-xl max-w-md mx-auto leading-relaxed">
-                            Luxury rides, seamless booking, and premium comfort
-                            for every journey.
-                        </p>
+                    </form>
+
+                    {/* Register Link */}
+                    <p className="text-slate-600 text-center mt-8">
+
+                        Don&apos;t have an account?{" "}
+
+                        <Link
+                            href="/signup"
+                            className="text-cyan-600 font-semibold"
+                        >
+                            Register
+                        </Link>
+
+                    </p>
+
+                </div>
+
+            </Card>
+
+            {/* Right Side Logo */}
+            <div className="hidden lg:flex justify-center items-center">
+
+                <div className="text-center">
+
+                    <div className="bg-white/40 backdrop-blur-2xl rounded-full p-10 shadow-2xl border border-white/50">
+
+                        <Image
+                            src="/assets/logo2.png"
+                            alt="RideNest Logo"
+                            width={480}
+                            height={280}
+                            className="object-contain"
+                        />
 
                     </div>
+
+                    <h2 className="text-7xl font-black text-slate-800 mt-8">
+                        Ride
+                        <span className="text-cyan-400">
+                            Nest
+                        </span>
+                    </h2>
+
+                    <p className="text-slate-600 mt-4 text-xl max-w-md mx-auto leading-relaxed">
+                        Luxury rides, seamless booking, and premium comfort
+                        for every journey.
+                    </p>
 
                 </div>
 
             </div>
 
-        </section>
-    );
+        </div>
+
+    </section>
+);
 };
 
 export default LoginPage;

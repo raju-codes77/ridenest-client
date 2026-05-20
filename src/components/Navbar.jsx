@@ -1,7 +1,17 @@
+"use client"
+import { authClient } from '@/app/explore-cars/[id]/auth-client';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 const Navbar = () => {
+     const { 
+        data: session, 
+        isPending, //loading state
+        error, //error object
+        refetch //refetch the session
+    } = authClient.useSession()
+    
+    const user=session?.user
     const navItems=(<>
 
     <Link className='font-semibold mx-2 p-2 hover:bg-linear-to-r hover:from-blue-500 hover:to-slate-500 hover:text-white rounded-md active:scale-90 ' href={"/"}>Home</Link>
@@ -40,7 +50,7 @@ const Navbar = () => {
                                 </div>
                                 <ul
                                     tabIndex="-1"
-                                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-index:9999 mt-3 w-52 p-4 shadow">
+                                    className="menu  dropdown-content bg-base-100 rounded-box z-index:9999 mt-3 w-52 p-4 shadow">
                                     <li><a>Logout</a></li>
                                 </ul>
                             </div>

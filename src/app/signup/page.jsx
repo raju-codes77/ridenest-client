@@ -9,21 +9,46 @@ import {
     Input,
 } from "@heroui/react";
 import { FcGoogle } from "react-icons/fc";
+import { authClient } from "../explore-cars/[id]/auth-client";
+import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
 
 const SignUpPage = () => {
 
     const [error, setError] = useState("");
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+        const user = Object.fromEntries(formData.entries());
+
+        const { data, error } = await authClient.signUp.email({
+            email:user.email, // user email address
+            password:user.password, // user password -> min 8 characters by default
+            name:user.name, // user display name
+            image:user.image // User image URL (optional)
+            // callbackURL:
+
+        }, {
+        onRequest: (ctx) => {
+            //show loading
+        },
+        onSuccess: (ctx) => {
+            //redirect to the dashboard or sign in page
+            toast.success("Welcome!Your account has been created");
+            redirect("/")
+        },
+        onError: (ctx) => {
+            // display the error message
+            toast.error(ctx.error.message);
+        }})
+        
 
         setError("");
 
         const form = e.target;
 
-        const name = form.name.value;
-        const email = form.email.value;
-        const photo = form.photo.value;
         const password = form.password.value;
 
         // Password Validation
@@ -43,15 +68,7 @@ const SignUpPage = () => {
             return;
         }
 
-        // Success
-        console.log({
-            name,
-            email,
-            photo,
-            password,
-        });
-
-        form.reset();
+       
     };
 
     return (
@@ -102,7 +119,7 @@ const SignUpPage = () => {
                                 variant="bordered"
                                 radius="lg"
                                 size="lg"
-                                 className='w-full'
+                                className='w-full'
                             />
 
                             {/* Photo URL */}
@@ -115,7 +132,7 @@ const SignUpPage = () => {
                                 variant="bordered"
                                 radius="lg"
                                 size="lg"
-                                 className='w-full'
+                                className='w-full'
                             />
 
                             {/* Password */}
@@ -128,7 +145,7 @@ const SignUpPage = () => {
                                 variant="bordered"
                                 radius="lg"
                                 size="lg"
-                                 className='w-full'
+                                className='w-full'
                             />
 
                             {/* Error */}
@@ -165,7 +182,7 @@ const SignUpPage = () => {
                                 className="w-full h-12 border-slate-300 text-slate-700 rounded-xl"
                                 startContent={<FcGoogle size={22} />}
                             >
-                               <FcGoogle /> Continue with Google
+                                <FcGoogle /> Continue with Google
                             </Button>
 
                         </form>

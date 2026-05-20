@@ -16,7 +16,7 @@ const carAddedPage = () => {
             body: JSON.stringify(carData)
         })
         const data = await res.json()
-        console.log(data)
+       
 
     }
     return (
