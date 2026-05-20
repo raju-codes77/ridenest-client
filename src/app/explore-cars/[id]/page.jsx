@@ -1,5 +1,8 @@
+import { DeleteAlert } from '@/components/DeleteAlert';
+import { EditModal } from '@/components/EditModal';
 import Image from 'next/image';
 import Link from 'next/link';
+import { BiEdit } from 'react-icons/bi';
 import { MdLocationOn, MdOutlineMyLocation } from 'react-icons/md';
 import { PiSeatThin } from 'react-icons/pi';
 
@@ -11,10 +14,16 @@ const CarDetailsPage = async ({ params }) => {
     const { _id, imageUrl, description, availability, carName, rentPrice, carType, seatCapacity, pickupLocation } = car;
 
     return (
-        <div className="max-w-5xl mx-auto flex justify-center py-8">
+        <div className="max-w-5xl mx-auto  justify-center py-8">
+
+            <div className='flex justify-end mb-3'>
+                <EditModal car={car}/>
+                <DeleteAlert car={car}/>
+            </div>
+            
             <div>
 
-                <Image src={imageUrl} alt={carName} height={500} width={800} className='w-full mx-auto rounded-md'/>
+                <Image src={imageUrl} alt={carName} height={500} width={800} className='w-full object-cover h-full mx-auto rounded-md'/>
 
                 <div className=" max-w-5xl mx-auto">
                     <h2 className="card-title px-3">{carName}</h2>
