@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import { MdLocationOn, MdOutlineMyLocation } from 'react-icons/md';
 import { PiSeatThin } from 'react-icons/pi';
 
 const CarCard = ({ car }) => {
-    const { imageUrl, description, availability, carName, rentPrice, carType, seatCapacity,pickupLocation } = car;
+    const {_id, imageUrl, description, availability, carName, rentPrice, carType, seatCapacity,pickupLocation } = car;
     return (
         <div>
             <div className="card bg-base-100 w-96 shadow-sm">
@@ -25,7 +26,7 @@ const CarCard = ({ car }) => {
                         <p className='flex gap-1 items-center'><MdOutlineMyLocation />{availability}</p>
                     </div>
                     <div className='flex justify-center py-4'>
-                        <button className='btn btn-primary'>Details</button>
+                        <Link href={`/explore-cars/${_id}`}>      <button className='btn btn-primary'>Details</button></Link>
                     </div>
                 </div>
             </div>
