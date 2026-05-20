@@ -1,4 +1,5 @@
 import CarCard from '@/components/CarCard';
+import CarListCard from '@/components/CarListCard';
 import React from 'react';
 
 const exploreCarsPage =async () => {
@@ -9,7 +10,7 @@ const exploreCarsPage =async () => {
             <h1 className='font-bold text-2xl'>Explore Cars</h1>
             <div className='grid md:grid-cols-3 gap-4'>
                 {
-                    cars.map(car=><CarCard key={car._id} car={car}></CarCard>)
+                    cars.map(car=><CarListCard key={car._id} car={car}></CarListCard>)
                 }
             </div>
         </div>

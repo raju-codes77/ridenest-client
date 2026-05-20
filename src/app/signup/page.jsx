@@ -11,10 +11,10 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { authClient } from "../explore-cars/[id]/auth-client";
 import { toast } from "react-toastify";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const SignUpPage = () => {
-
+    const router = useRouter();
     const [error, setError] = useState("");
 
     const handleRegister = async (e) => {
@@ -24,26 +24,26 @@ const SignUpPage = () => {
         const user = Object.fromEntries(formData.entries());
 
         const { data, error } = await authClient.signUp.email({
-            email:user.email, // user email address
-            password:user.password, // user password -> min 8 characters by default
-            name:user.name, // user display name
-            image:user.image // User image URL (optional)
+            email: user.email, // user email address
+            password: user.password, // user password -> min 8 characters by default
+            name: user.name, // user display name
+            image: user.image // User image URL (optional)
             // callbackURL:
 
-        }, {
-        onRequest: (ctx) => {
-            //show loading
-        },
-        onSuccess: (ctx) => {
+        },)
+        if (data) {
             //redirect to the dashboard or sign in page
             toast.success("Welcome!Your account has been created");
-            redirect("/")
-        },
-        onError: (ctx) => {
+
+            setTimeout(() => {
+                router.push("/")
+            }, 500);
+        }
+        if (error) {
             // display the error message
-            toast.error(ctx.error.message);
-        }})
-        
+            toast.error(error.message);
+        }
+
 
         setError("");
 
@@ -68,7 +68,7 @@ const SignUpPage = () => {
             return;
         }
 
-       
+
     };
 
     return (
@@ -125,7 +125,7 @@ const SignUpPage = () => {
                             {/* Photo URL */}
                             <Input
                                 required
-                                name="photo"
+                                name="image"
                                 label="Photo URL"
                                 placeholder="Enter photo url"
                                 type="url"
