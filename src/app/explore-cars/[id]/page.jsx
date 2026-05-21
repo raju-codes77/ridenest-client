@@ -1,52 +1,20 @@
-import { DeleteAlert } from '@/components/DeleteAlert';
-import { EditModal } from '@/components/EditModal';
-import Image from 'next/image';
-import Link from 'next/link';
-import { BiEdit } from 'react-icons/bi';
-import { MdLocationOn, MdOutlineMyLocation } from 'react-icons/md';
-import { PiSeatThin } from 'react-icons/pi';
+import CarDetails from "@/components/CarDetails";
 
 
 const CarDetailsPage = async ({ params }) => {
     const { id } = await params;
+
     const res = await fetch(`http://localhost:5000/explore-cars/${id}`);
+
     const car = await res.json();
-    const { _id, imageUrl, description, availability, carName, rentPrice, carType, seatCapacity, pickupLocation } = car;
+
+  
 
     return (
-        <div className="max-w-5xl mx-auto  justify-center py-8">
+        <section className="max-w-7xl mx-auto px-4 md:px-8 py-10">
 
-            <div className='flex justify-end mb-3'>
-                <EditModal car={car}/>
-                <DeleteAlert car={car}/>
-            </div>
-            
-            <div>
-
-                <Image src={imageUrl} alt={carName} height={500} width={800} className='w-full object-cover h-full mx-auto rounded-md'/>
-
-                <div className=" max-w-5xl mx-auto">
-                    <h2 className="card-title px-3">{carName}</h2>
-                    <div className='px-3'>
-                        <p className='text-gray-300'>{carType}</p>
-                        <p><span className='text-primary font-semibold'>${rentPrice}</span>/day</p>
-                    </div>
-                    <p className='text-xl font-bold text-green-500'>Description</p>
-                    <p>{description}</p>
-                    <div className="flex justify-between">
-                        <div className='flex gap-2'>
-                            <p className='flex gap-1 items-center'><PiSeatThin />{seatCapacity}</p>
-                            <p className='flex gap-1 items-center'><MdLocationOn />{pickupLocation}</p>
-                        </div>
-                        <p className='flex gap-1 items-center'><MdOutlineMyLocation />{availability}</p>
-                    </div>
-                    <div className='flex justify-center py-4'>
-                        <Link href={`/explore-cars/${_id}`}>      <button className='btn btn-primary'>Details</button></Link>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+          {<CarDetails car={car}/>}
+        </section>
     );
 };
 

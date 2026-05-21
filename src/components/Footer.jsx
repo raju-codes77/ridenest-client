@@ -5,6 +5,7 @@ import {
   FaTwitter,
   FaLinkedinIn,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -104,7 +105,7 @@ const Footer = () => {
                 href="/"
                 className="w-11 h-11 rounded-full bg-slate-800 hover:bg-blue-500 transition flex items-center justify-center"
               >
-                <FaTwitter size={18} />
+                <FaXTwitter size={18} />
               </Link>
 
               <Link
