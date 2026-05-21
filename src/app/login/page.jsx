@@ -34,17 +34,17 @@ const LoginPage = () => {
 
         })
 
-        if(data){
-                //redirect to the dashboard or sign in page
-                toast.success("Welcome! You are logged In ");
-                setTimeout(() => {
-                    router.push("/")
-                }, 1000);
-            }
-            if(error){
-                // display the error message
-                toast.error(ctx.error.message);
-            }
+        if (data) {
+            //redirect to the dashboard or sign in page
+            toast.success("Welcome! You are logged In ");
+            setTimeout(() => {
+                router.push("/")
+            }, 1000);
+        }
+        if (error) {
+            // display the error message
+            toast.error(error.message);
+        }
 
 
     }
@@ -53,21 +53,12 @@ const LoginPage = () => {
     // Google Login
     const handleGoogleLogin = async () => {
 
-        try {
+        await authClient.signIn.social({
+            provider: "google"
+            // idToken: { token: idToken, accessToken }
+        })
+    }
 
-            // Google Login Logic Here
-
-            toast.success("Google Login Successful!");
-
-            // Redirect Home
-            router.push("/");
-
-        } catch (error) {
-
-            toast.error("Google Login Failed");
-
-        }
-    };
 
     return (
         <section className="min-h-screen bg-gradient-to-br from-cyan-100 via-sky-50 to-blue-100 flex items-center justify-center px-4 py-10">

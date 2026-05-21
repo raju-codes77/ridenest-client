@@ -71,6 +71,14 @@ const SignUpPage = () => {
 
     };
 
+    const handleGoogleLogin = async () => {
+
+        await authClient.signIn.social({
+            provider: "google"
+            // idToken: { token: idToken, accessToken }
+        })
+    }
+
     return (
         <section className="min-h-screen bg-gradient-to-br from-cyan-100 via-sky-50 to-blue-100 flex items-center justify-center px-4 py-10">
 
@@ -178,6 +186,7 @@ const SignUpPage = () => {
 
                             {/* Google Login */}
                             <Button
+                                onClick={handleGoogleLogin}
                                 variant="bordered"
                                 className="w-full h-12 border-slate-300 text-slate-700 rounded-xl"
                                 startContent={<FcGoogle size={22} />}
