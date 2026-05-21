@@ -2,9 +2,10 @@
 
 import React from "react";
 import { FiTrash2, FiEye } from "react-icons/fi";
+import { BookingCancelAlert } from "./BookingCancelAlert";
 
-const BookingCard = ({ booking, onCancel, onView }) => {
-  const { bookingDate, rentPrice, carName, status = "confirmed" } = booking || {};
+const BookingCard = ({ booking }) => {
+  const { bookingDate, rentPrice, _id,carName, status = "confirmed" } = booking || {};
 
   const date = bookingDate ? new Date(bookingDate) : null;
 
@@ -66,26 +67,13 @@ const BookingCard = ({ booking, onCancel, onView }) => {
         <div className="my-5 border-t border-base-200"></div>
 
         {/* Actions */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-end items-center">
 
-          {/* View */}
-          <button
-            onClick={() => onView?.(booking)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-500/90 hover:bg-blue-600 text-white shadow-md hover:scale-105 transition"
-          >
-            <FiEye />
-            View Details
-          </button>
+        
 
           {/* Cancel */}
-          <button
-            onClick={() => onCancel?.(booking)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/90 hover:bg-red-600 text-white shadow-md hover:scale-105 transition"
-          >
-            <FiTrash2 />
-            Cancel
-          </button>
-
+          
+           <BookingCancelAlert bookingId={booking._id}/>
         </div>
       </div>
     </div>

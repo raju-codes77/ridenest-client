@@ -2,13 +2,16 @@
 
 import {AlertDialog, Button} from "@heroui/react";
 import { redirect } from "next/navigation";
+import { FiTrash2 } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { toast } from "react-toastify";
 
-export function DeleteAlert({car}) {
-  const {carName,_id}=car;
+export function BookingCancelAlert({bookingId}) {
+   
+  
   const handleDelete=async()=>{
-     const res = await fetch(`http://localhost:5000/explore-cars/${_id}`, {
+       
+     const res = await fetch(`http://localhost:5000/booking/${bookingId}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -16,23 +19,30 @@ export function DeleteAlert({car}) {
            
         })
         const data = await res.json()
-           toast.success("Car Deleted Sucessfully")
-        redirect('/my-cars')
+        toast.success("Booking Canceled Sucessfully")
+        redirect('/my-bookings')
+        
   }
   return (
     <AlertDialog>
-      <Button variant="danger"><MdDeleteOutline />Delete Car</Button>
+   <Button
+            
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/90 hover:bg-red-600 text-white shadow-md hover:scale-105 transition"
+          >
+            <FiTrash2 />
+            Cancel
+          </Button>
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
           <AlertDialog.Dialog className="sm:max-w-[400px]">
             <AlertDialog.CloseTrigger />
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
-              <AlertDialog.Heading>Delete Car permanently?</AlertDialog.Heading>
+              <AlertDialog.Heading>Delete Booking permanently?</AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
               <p>
-                This will permanently delete <strong>{carName} </strong> and all of its
+                This will permanently delete <strong>your booking </strong> and all of its
                 data. This action cannot be undone.
               </p>
             </AlertDialog.Body>
@@ -41,7 +51,7 @@ export function DeleteAlert({car}) {
                 Cancel
               </Button>
               <Button onClick={handleDelete} slot="close" variant="danger">
-                Delete Car
+                Cancel  Booking
               </Button>
             </AlertDialog.Footer>
           </AlertDialog.Dialog>

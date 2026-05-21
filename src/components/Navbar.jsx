@@ -24,6 +24,7 @@ const Navbar = () => {
 
         <Link className='font-semibold mx-2 p-2 hover:bg-linear-to-r hover:from-blue-500 hover:to-slate-500 hover:text-white rounded-md active:scale-90 ' href={"/"}>Home</Link>
         <Link className='font-semibold mx-2 p-2 hover:bg-linear-to-r hover:from-blue-500 hover:to-slate-500 hover:text-white rounded-md active:scale-90 ' href={"/explore-cars"}>Explore Cars</Link>
+        <Link className='font-semibold mx-2 p-2 hover:bg-linear-to-r hover:from-blue-500 hover:to-slate-500 hover:text-white rounded-md active:scale-90 ' href={"/my-cars"}>My Added Cars</Link>
         <Link className='font-semibold mx-2 p-2 hover:bg-linear-to-r hover:from-blue-500 hover:to-slate-500 hover:text-white rounded-md active:scale-90 ' href={"/add-car"}>Add Car</Link>
         <Link className='font-semibold mx-2 p-2 hover:bg-linear-to-r hover:from-blue-500 hover:to-slate-500 hover:text-white rounded-md active:scale-90 ' href={"/my-bookings"}>My Bookings</Link>
 
@@ -107,9 +108,9 @@ const Navbar = () => {
                                 <Dropdown.Menu>
                                     {
                                         user ? <>
-                                            <Dropdown.Item id="settings" textValue="Settings" onPress={() => router.push("/explore-cars")}>
+                                            <Dropdown.Item id="settings" textValue="Settings" onPress={() => router.push("/my-cars")}>
                                                 <div className="flex w-full items-center justify-between gap-2">
-                                                    <Label>Explore Cars</Label>
+                                                    <Label>My Added Cars</Label>
                                                     <Gear className="size-3.5 text-muted" />
                                                 </div>
                                             </Dropdown.Item>

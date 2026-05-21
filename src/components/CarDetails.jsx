@@ -58,10 +58,7 @@ const CarDetails = ({ car }) => {
        return (
               <>
                      {/* Top Actions */}
-                     <div className="flex justify-end gap-3 mb-6">
-                            <EditModal car={car} />
-                            <DeleteAlert car={car} />
-                     </div>
+                    
 
                      {/* Main Layout */}
                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">

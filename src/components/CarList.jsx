@@ -5,7 +5,7 @@ import { FaArrowRight } from 'react-icons/fa';
 import CarListCard from './CarListCard';
 
 const CarList =async () => {
-    const res=await fetch('http://localhost:5000/cars')
+    const res=await fetch('http://localhost:5000/all-cars')
     const cars=await res.json()
     const slicedCar=cars.slice(0,6)
     return (

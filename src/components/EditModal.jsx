@@ -27,9 +27,14 @@ export function EditModal({ car }) {
     }
     return (
         <Modal>
-           
-                <Button variant="secondary mb-3 flex items-center"><FaEdit />Edit</Button>
-           
+
+            <Button
+                variant="secondary"
+                className="group relative flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 text-white font-medium shadow-md hover:shadow-xl hover:scale-[1.03] transition-all duration-300 overflow-hidden"
+            >
+                <FaEdit className="group-hover:rotate-12 transition-transform duration-300" />
+                Edit
+            </Button>
             <Modal.Backdrop>
                 <Modal.Container placement="auto">
                     <Modal.Dialog className="sm:max-w-md">

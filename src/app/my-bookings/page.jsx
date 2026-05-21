@@ -7,6 +7,7 @@ import React from 'react'
     headers: await headers() // you need to pass the headers object.
 })
 const user=session?.user;
+
 const res=await fetch(`http://localhost:5000/booking/${user?.id}`)
 const data=await res.json()
        return(

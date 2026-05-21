@@ -4,7 +4,7 @@ import CarDetails from "@/components/CarDetails";
 const CarDetailsPage = async ({ params }) => {
     const { id } = await params;
 
-    const res = await fetch(`http://localhost:5000/explore-cars/${id}`);
+    const res = await fetch(`http://localhost:5000/all-cars/${id}`);
 
     const car = await res.json();
 
