@@ -23,7 +23,17 @@ const SignUpPage = () => {
         const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
 
-        const { data, error } = await authClient.signUp.email({
+        
+
+
+        setError("");
+
+        const form = e.target;
+
+        const password = form.password.value;
+       
+        if(password.length < 6 && !/[A-Z]/.test(password) && !/[a-z]/.test(password)){
+            const { data, error } = await authClient.signUp.email({
             email: user.email, // user email address
             password: user.password, // user password -> min 8 characters by default
             name: user.name, // user display name
@@ -43,14 +53,7 @@ const SignUpPage = () => {
             // display the error message
             toast.error(error.message);
         }
-
-
-        setError("");
-
-        const form = e.target;
-
-        const password = form.password.value;
-
+        }
         // Password Validation
 
         if (password.length < 6) {

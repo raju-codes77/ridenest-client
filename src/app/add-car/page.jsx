@@ -9,7 +9,7 @@ const carAddedPage = () => {
         const formData = new FormData(e.currentTarget)
         const carData = Object.fromEntries(formData.entries())
 
-        const res = await fetch('http://localhost:5000/cars', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/cars`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
