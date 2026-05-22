@@ -8,7 +8,7 @@ const CarDetailsPage = async ({ params }) => {
     const {token}=await auth.api.getToken({
         headers:await headers()
     })
-    const res = await fetch(`http://localhost:5000/all-cars/${id}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/all-cars/${id}`,{
         headers:{
             authorization:`Bearer ${token}`
         }

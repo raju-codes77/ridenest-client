@@ -3,7 +3,7 @@ import CarListCard from '@/components/CarListCard';
 import React from 'react';
 
 const exploreCarsPage =async () => {
-    const res=await fetch('http://localhost:5000/all-cars')
+    const res=await fetch(`${process.env.NEXT_PUBLIC_SERVER}/all-cars`)
     const cars=await res.json()
     return (
         <div className='max-w-7xl mx-auto py-5'>

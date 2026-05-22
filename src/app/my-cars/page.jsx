@@ -8,7 +8,7 @@ const MyAddedCars =async () => {
     const {token}=await auth.api.getToken({
             headers:await headers()
         })
-    const res=await fetch('http://localhost:5000/cars')
+    const res=await fetch(`${process.env.NEXT_PUBLIC_SERVER}/cars`)
     const cars=await res.json()
     return (
         <div className='max-w-7xl mx-auto py-5'>

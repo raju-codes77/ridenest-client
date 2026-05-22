@@ -8,7 +8,7 @@ import React from 'react'
 })
 const user=session?.user;
 
-const res=await fetch(`http://localhost:5000/booking/${user?.id}`)
+const res=await fetch(`${process.env.NEXT_PUBLIC_SERVER}/booking/${user?.id}`)
 const data=await res.json()
        return(
               <div className='max-w-7xl mx-auto space-y-4 mb-5'>
