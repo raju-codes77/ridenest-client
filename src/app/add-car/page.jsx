@@ -1,6 +1,7 @@
 'use client'
 import { Button, FieldError, Input, Label, ListBox, TextArea, TextField, Select, Card } from '@heroui/react';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const carAddedPage = () => {
     const onSubmit = async (e) => {
@@ -16,6 +17,7 @@ const carAddedPage = () => {
             body: JSON.stringify(carData)
         })
         const data = await res.json()
+        toast.success("Car Added Successfully!")
        
 
     }
